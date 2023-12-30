@@ -15,9 +15,24 @@ def calculate_lagrange_polynomial(points):
     should be the first element of list
     """
 
-    # Add your code here
-    pass
+def basis(x, j, points):
+    result = 1
+    for m in range(len(points)):
+        if m != j:
+            result *= (x - points[m][0]) / (points[j][0] - points[m][0])
+    return result
 
+def calculate_lagrange_polynomial(points):
+    lagrange_polynomial = [0] * len(points)
+    for i in range(len(points)):
+        for j in range(len(points)):
+            lagrange_polynomial[i] += basis(points[i][0], j, points) * points[j][1]
+    return lagrange_polynomial
+
+polynomial_points = [(0, 1), (1, 2), (2, 3)]
+lp_coeffs = calculate_lagrange_polynomial(polynomial_points)
+print(lp_coeffs)
+    
 
 csv_writer = CSVWriter()
 all_polynomial_points = csv_writer.get_points()
